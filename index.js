@@ -1,14 +1,31 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
+const morgan = require('morgan');
+const bodyParser = require('body-parser')
 const port = 3000;
+// create an app 
+const app = express();
+// cors config 
+app.use(cors());
+// morgan 
+app.use(morgan('dev'));
+// body parser config
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// import connection to database 
+const connect = require('./database/connect');
+// require todo schema
+const Todo = require('./models/todoSchema')
 
 app.get('/', async (req, res) => {
   res.json({message: 'Hello World!'});
 });
 
 // 1. get all todos
-app.get('/todos', async (req, res) => {
-    res.json({message: 'get all todos'});
+app.get('/todos', async (req, res)=>{
+    const todos = await Todo.find();
+    res.json(todos);
 });
 
 // 2. get todo by id
@@ -18,7 +35,8 @@ app.get('/todos/:id', async (req, res) => {
 
 // 3. add todo
 app.post('/todos', async (req, res) => {
-    res.json({message: 'add todo'});
+    const createdTodo = await Todo.create(req.body);
+    res.json(createdTodo);
 });
 
 // 4. update todo by id
