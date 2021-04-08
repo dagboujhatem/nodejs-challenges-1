@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/database001', {useNewUrlParser: true, useUnifiedTopology: true})
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+};
+
+mongoose.connect('mongodb://localhost:27017/database001', options)
 .then((success) => {
     console.log("=> Successfully connection to database")
 }).catch((error) => {
