@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const tutorialSchema = mongoose.Schema({
     title: String,
-    description: String
+    description: String,
+    tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'tags'}]
 },{
     versionKey: false,
     timestamps: true
