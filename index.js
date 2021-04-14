@@ -30,6 +30,7 @@ const userDetailsAPI = require('./routes/userDetailsApi');
 const tagsAPI = require('./routes/tagApi');
 const tutorialAPI = require('./routes/tutorialApi');
 const mailAPI = require('./routes/mailApi');
+const uploadAPI = require('./routes/uploadApi');
 
 app.get('/', async (req, res) => {
   res.json({message: 'Hello World!'});
@@ -42,6 +43,7 @@ app.use('/api/v1', userDetailsAPI);
 app.use('/api/v1', tagsAPI);
 app.use('/api/v1', tutorialAPI);
 app.use('/api/v1', mailAPI);
+app.use('/api/v1', uploadAPI);
 
 
 app.listen(port, () => {
