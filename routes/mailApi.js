@@ -45,8 +45,8 @@ router.get('/sendMailV2', async(req,res)=>{
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'dagboujhatem@gmail.com',
-            pass: 'admingmail'
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
         }
     });
 

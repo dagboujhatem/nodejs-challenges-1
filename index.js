@@ -1,7 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+// first way (dotenv file config )
+const dotenv = require('dotenv');
+dotenv.config();
+// second way (dotenv file config )
+// require('dotenv').config()
 const port = 3000;
 // create an app 
 const app = express();
@@ -12,6 +17,9 @@ app.use(morgan('dev'));
 // body parser config
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// require schedule
+const schedule= require('./schedule');
 
 // import connection to database 
 const connect = require('./database/connect');
