@@ -34,9 +34,14 @@ const myFileFilter =  (req, file, cb) => {
     // }
 }
 // create the multer middleware 
-const upload = multer({ storage: myStorage, fileFilter: myFileFilter, limits: {fileSize: 1024*20} });
+const upload = multer({ storage: myStorage, fileFilter: myFileFilter, limits: {fileSize: 1024*1024*20} });
 
 router.post('/uploadImage', upload.single('img'), async(req,res)=>{
+    res.json({message: 'image uploaded successfully!'});
+});
+
+// uploads mutiple 
+router.post('/uploadImageMultiple', upload.array('img', 3), async(req,res)=>{
     res.json({message: 'image uploaded successfully!'});
 });
 
