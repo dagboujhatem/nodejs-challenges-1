@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 // require user schema
 const User = require('../models/userSchema')
@@ -90,4 +91,23 @@ router.get('/users/findByEmail/:email', async (req, res)=>{
     res.json(user);
 });
 
+
+/**
+ *  Profile APIs
+ */
+
+// router.get('/profile/:id',passport.authenticate('bearer', { session: false }), async (req, res)=>{
+//     const foundUser = await User.findById(req.params.id); 
+//     res.json(foundUser);
+// });
+
+router.get('/profile', passport.authenticate('bearer', { session: false }), async (req, res)=>{
+    console.log(req.user);
+    res.json(req.user);
+});
+
+router.put('/profile', passport.authenticate('bearer', { session: false }), async (req, res)=>{
+    const updatedUser = await User.findByIdAndUpdate(req.user._id, req.body, {new : true});
+    res.json(updatedUser);
+});
 module.exports = router;

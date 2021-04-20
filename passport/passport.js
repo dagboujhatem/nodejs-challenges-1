@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 
 passport.use(new BearerStrategy(
     (token, done) => {
-      console.log(token);
+      // console.log(token);
       const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-      console.log(decodedData);
+      // console.log(decodedData);
       User.findById(decodedData.userId,  (err, user) => {
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
