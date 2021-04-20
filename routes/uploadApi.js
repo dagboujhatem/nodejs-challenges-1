@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const passport = require('passport');
 const router = express.Router();
 const User = require('../models/userSchema');
 
@@ -40,12 +41,12 @@ const myFileFilter =  (req, file, cb) => {
 // create the multer middleware 
 const upload = multer({ storage: myStorage, fileFilter: myFileFilter, limits: {fileSize: 1024*1024*20} });
 
-router.post('/uploadImage/:id', upload.single('img'), async(req,res)=>{
+router.post('/uploadImage/:id', [passport.authenticate('bearer', { session: false }), upload.single('img')], async(req,res)=>{
     res.json({message: 'image uploaded successfully!'});
 });
 
 // uploads mutiple 
-router.post('/uploadImageMultiple', upload.array('img', 3), async(req,res)=>{
+router.post('/uploadImageMultiple', [passport.authenticate('bearer', { session: false }),upload.array('img', 3)], async(req,res)=>{
     res.json({message: 'image uploaded successfully!'});
 });
 

@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+// passport 
+const passport = require('./passport/passport');
 // first way (dotenv file config )
 const dotenv = require('dotenv');
 dotenv.config();
@@ -31,6 +33,7 @@ const tagsAPI = require('./routes/tagApi');
 const tutorialAPI = require('./routes/tutorialApi');
 const mailAPI = require('./routes/mailApi');
 const uploadAPI = require('./routes/uploadApi');
+const authAPI = require('./routes/authAPI');
 
 app.get('/', async (req, res) => {
   res.json({message: 'Hello World!'});
@@ -46,7 +49,7 @@ app.use('/api/v1', tagsAPI);
 app.use('/api/v1', tutorialAPI);
 app.use('/api/v1', mailAPI);
 app.use('/api/v1', uploadAPI);
-
+app.use('/api/v1', authAPI);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
